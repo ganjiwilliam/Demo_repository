@@ -11,16 +11,7 @@ pipeline {
                     echo 'Hi, this is william'
                  }
                  }
-                 stage('Three') {
-                 when {
-                       not {
-                            branch "master"
-                       }
-                 }
-                 steps {
-                       echo "Hello"
-                 }
-                 }
+                 
                  stage('Four') {
                  parallel { 
                             stage('Unit Test') {
