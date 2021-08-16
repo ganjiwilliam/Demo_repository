@@ -10,8 +10,12 @@ pipeline {
                              bat 'echo %GIT_URL% >> git.txt'
                              bat 'echo %GIT_COMMIT% >> git.txt'
                              bat 'echo %GIT_BRANCH% >> git.txt'
-                             a=a[1..4]
-                             bat 'echo %a% >> git.txt' 
+                             setlocal EnableDelayedExpansion
+                             set var1=A
+                             set var2=B
+                             set AB=hi
+                             set newvar=!%var1%%var2%!
+                             echo %newvar%
                              
                              
                           }
