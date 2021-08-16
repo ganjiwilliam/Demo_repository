@@ -11,7 +11,7 @@ pipeline {
                              a=a[7..11]
                              echo "${a}"
                                             withEnv(["x=${a}"]){
-                                      bat 'echo ${x}'
+                                      bat 'echo %x%'
                                             }
                              
                                    }
