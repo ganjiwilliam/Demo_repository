@@ -9,7 +9,7 @@ pipeline {
                              bat 'echo %GIT_COMMIT% >> git.txt'
                              bat 'echo %GIT_BRANCH% >> git.txt'
                                    
-                             set newvar=%GIT_URL%%GIT_COMMIT%
+                             set newvar=!%GIT_URL%%GIT_COMMIT%!
                              bat 'echo %newvar%'
                              
                              
