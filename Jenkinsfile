@@ -7,9 +7,13 @@ pipeline {
                  }
                  }
                   stage('Two'){
+                           steps{
                            script{
                                     GIT_SHORT_COMMIT = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
                                     echo GIT_SHORT_COMMIT
+                           }
+                           }
+                  }
          
          
          }      
