@@ -8,7 +8,7 @@ pipeline {
                              bat 'echo %GIT_URL% >> git.txt'
                              bat 'echo %GIT_COMMIT% >> git.txt'
                               bat 'echo %GIT_BRANCH% >> git.txt'
-                          bat '''set OutputFolderName=%date:~12,2%%date:~4,2%%date:~7,2%_%time:~0,2%%time:~3,2%%time:~6,2%,release
+                          bat '''set OutputFolderName=%date:~12,2%%date:~4,2%%date:~7,2%_%time:~0,2%%time:~3,2%%time:~6,2%release
                           mkdir %OutputFolderName% '''
                         
                           
