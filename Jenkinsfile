@@ -5,14 +5,9 @@ pipeline {
                  stage('One') {
                  steps {
                           script{
-                             bat 'echo %GIT_URL% >> git.txt'
-                             bat 'echo %GIT_COMMIT% >> git.txt'
-                             bat 'echo %GIT_BRANCH% >> git.txt'
-                                   
-                             set newvar=!%GIT_URL%%GIT_COMMIT%!
-                             bat 'echo %newvar%'
-                             
-                             
+                             def a="release/3.4.0"
+                             def b=a.split("/")
+                             bat 'echo %b%'
                           }
               
                  }
