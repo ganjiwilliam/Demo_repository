@@ -8,7 +8,10 @@ pipeline {
                           steps { 
                                    script{
                                       bat 'echo %GIT_BRANCH% >> git.txt'
+                                      echo "${BRANCH_NAME}"
                                       bat 'echo %BRAnCH_NAME%'
+                                      bat ' ren "git.txt" "git%BRAnCH_NAME%.txt" '
+                                      
                                       
                                    }
                             }
