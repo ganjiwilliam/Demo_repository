@@ -1,7 +1,7 @@
 pipeline {
          agent any
          environment{
-                  a="williamcarey"
+                  a= "williamcarey"
          }
          stages {
                  stage('One') {
@@ -11,6 +11,7 @@ pipeline {
                              a=a[7..11]
                              echo "${a}"
                                             withEnv(["x=${GIT_BRANCH}"]){
+                                                     x=x[15..19]
                                       bat 'echo %x%'
                                             }
                              
