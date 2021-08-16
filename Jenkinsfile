@@ -10,6 +10,7 @@ pipeline {
                              bat 'echo %GIT_BRANCH% >> git.txt'
                                    environment{
                                             a='william'
+                                   }
                           }
               
                  }
