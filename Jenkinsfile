@@ -2,6 +2,7 @@ pipeline {
          agent any
          environment{
                   a="williamcarey"
+         }
          stages {
                  stage('One') {
                  steps {
