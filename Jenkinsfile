@@ -7,8 +7,8 @@ pipeline {
                           
                              
                              bat 'echo %GIT_BRANCH% >> git.txt'
-                             set a= %GIT_BRANCH%
-                             a=a[15..19]       
+                             set a= %GIT_COMMIT%
+                            mkdir %a%       
                                    
                           
               
