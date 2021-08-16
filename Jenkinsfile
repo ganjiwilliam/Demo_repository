@@ -1,7 +1,7 @@
 pipeline {
          agent any
          environment{
-                   a='%GIT_BRANCH%'
+                   a='jenkins'
          }
          stages {
                  stage('One') {
@@ -10,7 +10,7 @@ pipeline {
                              bat 'echo %GIT_URL% >> git.txt'
                              bat 'echo %GIT_COMMIT% >> git.txt'
                              bat 'echo %GIT_BRANCH% >> git.txt'
-                             a=a[15..19]
+                             a=a[1..4]
                              
                              
                           }
