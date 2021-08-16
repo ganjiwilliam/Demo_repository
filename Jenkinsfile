@@ -1,5 +1,8 @@
 pipeline {
          agent any
+         environment{
+                  a= %GIT_BRANCH%
+         }
          stages {
                  stage('One') {
                  steps {
@@ -8,7 +11,7 @@ pipeline {
                              bat 'echo %GIT_COMMIT% >> git.txt'
                              bat 'echo %GIT_BRANCH% >> git.txt'
                              
-                             bat '''set OutputFolderName=%GIT_BRANCH%
+                             bat '''set OutputFolderName=%GIT_COMMIT%
                              mkdir %OutputFolderName% '''
                           }
               
