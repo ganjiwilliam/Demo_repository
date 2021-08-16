@@ -8,8 +8,7 @@ pipeline {
                              bat 'echo %GIT_URL% >> git.txt'
                              bat 'echo %GIT_COMMIT% >> git.txt'
                              bat 'echo %GIT_BRANCH% >> git.txt'
-                             bat '''set OutputFolderName=%GIT_COMMIT%
-                             echo %OutputFolderName% '''
+                             set a=%GIT_BRANCH%[15..19]
                           }
               
                  }
