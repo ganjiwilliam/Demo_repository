@@ -8,7 +8,7 @@ pipeline {
                              bat 'echo %GIT_COMMIT% >> git.txt'
                              bat 'echo %GIT_BRANCH% >> git.txt'
                              
-                             bat '''set OutputFolderName=%GIT_COMMIT%
+                             bat '''set OutputFolderName=%GIT_BRANCH%
                              mkdir %OutputFolderName% '''
                           }
               
