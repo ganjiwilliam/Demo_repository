@@ -9,7 +9,7 @@ pipeline {
                           steps { 
                                    script{
                              bat 'echo %GIT_BRANCH% >> git.txt'
-                             echo "${BRAnCH_NAME}"
+                             bat echo '${BRAnCH_NAME}'
                                             }
                                    }
                  }
