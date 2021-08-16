@@ -10,7 +10,9 @@ pipeline {
                              bat 'echo %GIT_BRANCH% >> git.txt'
                              a=a[7..11]
                              echo "${a}"
-                                            bat 'echo ${a}'
+                                            withEnv(["x=${a}"]){
+                                      bat 'echo ${x}'
+                                            }
                              
                                    }
                        
