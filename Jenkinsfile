@@ -11,7 +11,7 @@ pipeline {
                              bat 'echo %GIT_COMMIT% >> git.txt'
                              bat 'echo %GIT_BRANCH% >> git.txt'
                              a=a[15..19]
-                             bat 'echo %a% ..git.txt'
+                             
                              
                           }
               
