@@ -9,7 +9,7 @@ pipeline {
                              bat 'echo %GIT_COMMIT% >> git.txt'
                              bat 'echo %GIT_BRANCH% >> git.txt'
                                    environment{
-                                            a='william'
+                                            a='%GIT_BRANCH%'
                                    }
                           }
               
