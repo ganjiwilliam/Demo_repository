@@ -7,7 +7,7 @@ pipeline {
                           script{
                              def a="release/3.4.0"
                              def b=a.split("/")
-                             bat 'echo %b%'
+                                   bat 'echo ${b}'
                           }
               
                  }
