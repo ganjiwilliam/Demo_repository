@@ -1,18 +1,18 @@
 pipeline {
          agent any
          environment{
-                  a= "williamcarey"
+     BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+  }
+
+
          }
          stages {
                  stage('One') {
                           steps { 
                                    script{
                              bat 'echo %GIT_BRANCH% >> git.txt'
-                             a=a[7..11]
-                             echo "${a}"
-                                            withEnv(["x=${GIT_BRANCH}"]){
-                                                     x=x[15..19]
-                                      bat 'echo %x%'
+                                            echo "${BRAnCH_NAME}"
+                                           
                                             }
                              
                                    }
