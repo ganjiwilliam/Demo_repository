@@ -4,7 +4,7 @@ pipeline {
          stages {
                  stage('One') {
                  steps {
-                          ws('D:\\Jenkins\\ee_people_counter_demo'){
+                          ws('D:\\Jenkins\\xyz'){
                         
                              bat ''' echo %GIT_URL% >> git.txt
                                      echo %GIT_COMMIT% >> git.txt
