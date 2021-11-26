@@ -6,7 +6,7 @@ pipeline {
          stages {
                  stage('One') {
                  steps {
-                          ws('C:\\yoyo'){ 
+                          ws('C:\\demoo'){ 
                          bat '''
                           echo %BRANCH_NAME% >>  ..\\svn.txt
                           '''
