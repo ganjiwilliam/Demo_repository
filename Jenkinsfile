@@ -7,6 +7,6 @@ pipeline {
                           echo "hello william"
                           }
                  }
-                 }
+                 
          }      
 }
