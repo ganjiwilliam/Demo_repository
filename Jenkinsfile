@@ -7,8 +7,8 @@ pipeline {
                  stage('One') {
                  steps {
                           ws('C:\\yoyo'){ 
-                          echo "hello william"
-                          bat '''mkdir adiPeopleCount-CM-Rel%BRANCH_NAME%_PROD '''
+                          echo "${BRANCH_NAME}"
+                          
                           }
                           }
                  }
