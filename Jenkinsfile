@@ -8,7 +8,7 @@ pipeline {
                  steps {
                           ws('C:\\yoyo'){ 
                          bat '''
-                         echo echo %BRANCH_NAME% >>  ..\\svn.txt
+                          echo %BRANCH_NAME% >>  ..\\svn.txt
                           '''
                           }
                           }
