@@ -6,13 +6,10 @@ pipeline{
     stages{
         stage('one'){
             steps{
-               
-                
-                     cleanWs()
-                                          echo "${BRANCH_NAME}"
+                    cleanWs()
+                    echo "${BRANCH_NAME}"
                     bat 'mkdir hey'
                     bat 'del README.md'
-                
             }
         }
     }
