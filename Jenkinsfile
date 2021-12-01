@@ -25,7 +25,7 @@ pipeline{
         }
         stage('mail'){
             steps{
-                mail bcc: '',attachmentsPattern: 'C:\\test\\sample.txt', body: "<br>\n<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", from: '', replyTo: '',subject: 'Demo Mail', to: 'William.Carey@analog.com';
+                emailext attachmentsPattern: 'C:\\test\\sample.txt', body: "<br>\n<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", from: '', replyTo: '',subject: 'Demo Mail', to: 'William.Carey@analog.com';
        }
     }
 }
