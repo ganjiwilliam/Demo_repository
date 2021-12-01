@@ -8,13 +8,24 @@ pipeline{
             steps{
                     cleanWs()
                     echo "${BRANCH_NAME}"
-                    bat 'mkdir hey'
-                    bat 'del README.md'
+                    
+                    
+            }
+        }
+        stage('two'){
+           steps{
+               bat 'mkdir C:\\test'
+           }
+       }
+        stage('three') {
+            
+            steps {
+                bat 'echo hello! I am William > C:\\test\\sample.txt'
             }
         }
         stage('mail'){
             steps{
-                mail bcc: '', body: "<br>\n<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", from: '', replyTo: '',subject: 'Demo Mail', to: 'William.Carey@analog.com';
+                mail bcc: '',attachmentsPattern: 'C:\\test\\sample.txt', body: "<br>\n<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL build: ${env.BUILD_URL}", from: '', replyTo: '',subject: 'Demo Mail', to: 'William.Carey@analog.com';
        }
     }
 }
