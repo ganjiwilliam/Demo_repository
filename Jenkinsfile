@@ -5,15 +5,15 @@ pipeline{
     }
    
     stages{
-         ws('C:\\mydemo'){
+         
         stage('one'){
             steps{
+                
                     cleanWs()
                     echo "${BRANCH_NAME}"
                     
                     
             }
         }
-    }
     }
 }
