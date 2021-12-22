@@ -3,8 +3,9 @@ pipeline{
     environment{
         BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
     }
-    ws('C:\\mydemo'){
+   
     stages{
+         ws('C:\\mydemo'){
         stage('one'){
             steps{
                     cleanWs()
