@@ -8,12 +8,17 @@ pipeline{
          
         stage('one'){
             steps{
-                
+                    
                     cleanWs()
                     echo "${BRANCH_NAME}"
                 bat 'mkdir Hello'
                     
                     
+            }
+        }
+        stage('two'){
+            steps{
+                bat 'cd Hello'
             }
         }
     }
