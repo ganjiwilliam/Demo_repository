@@ -11,7 +11,7 @@ pipeline{
                 
                     cleanWs()
                     echo "${BRANCH_NAME}"
-                mkdir Hello
+                bat 'mkdir Hello'
                     
                     
             }
