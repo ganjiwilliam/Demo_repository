@@ -1,6 +1,5 @@
 
-def call{
-	BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
 	
 pipeline{
     agent any
@@ -15,5 +14,5 @@ pipeline{
 	        }    
             }
         }
-}   
+  
 }
