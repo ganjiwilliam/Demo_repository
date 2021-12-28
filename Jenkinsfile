@@ -1,21 +1,19 @@
 
+def call{
+	BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
 	
 pipeline{
     agent any
 
-    environment{
-        BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-	    
-    }
-   
+    
     stages{         
         stage('one'){
             steps{                    
                     cleanWs()
-		    echo "${GIT_BRANCH}"
-                    bat 'echo ${BRANCH_NAME}'                                 
+		    echo "${BRANCH_NAME}"
+                                                   
 	        }    
             }
         }
-        
+}   
 }
