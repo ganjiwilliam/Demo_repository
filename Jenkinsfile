@@ -22,4 +22,14 @@ pipeline{
             }
         }
     }
+    post{
+        always{
+            emailext (attachLog: true,compressLog: true,
+		            body: """Job Name : ${env.JOB_NAME}
+                    Build Number : $BUILD_NUMBER
+                    Status : ${currentBuild.result}
+                    URL to Jenkins Build : ${env.BUILD_URL}""",
+                    subject: 'automation reports', to: 'William.Carey@analog.com')
+        }
+    }
 }
