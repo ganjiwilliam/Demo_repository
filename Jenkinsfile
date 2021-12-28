@@ -1,5 +1,4 @@
-def call() {
-	if 
+
 	
 pipeline{
     agent any
