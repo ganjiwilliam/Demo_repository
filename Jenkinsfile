@@ -1,7 +1,12 @@
+def call() {
+	if 
+	
 pipeline{
     agent any
+
     environment{
         BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+	    if %BRANCH_NAME%==main (echo "hello")
     }
    
     stages{
