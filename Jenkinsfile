@@ -2,7 +2,7 @@
 pipeline{
     agent any
 	environment{
-		ENV_NAME = "${GIT_BRANCH.split("/")[1] == "main" ? "GIT_BRANCH.split("/")[0]" : "GIT_BRANCH.split("/")[1]"}
+		ENV_NAME = "${GIT_BRANCH.split("/")[1] == "main" ? "${GIT_BRANCH.split("/")[0]}" : "${GIT_BRANCH.split("/")[1]}"}
 	}
     stages{         
         stage('one'){
