@@ -10,6 +10,7 @@ pipeline{
             steps{
                     
                     cleanWs()
+		    echo "${GIT_BRANCH}"
                     echo "${BRANCH_NAME}"
                 bat 'mkdir Hello'
                     
