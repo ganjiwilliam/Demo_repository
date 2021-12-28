@@ -8,17 +8,13 @@ pipeline{
 	    
     }
    
-    stages{
-         
+    stages{         
         stage('one'){
-            steps{
-                    
+            steps{                    
                     cleanWs()
 		    echo "${GIT_BRANCH}"
-                    bat 'echo ${BRANCH_NAME}'
-               
-                    
-                    
+                    bat 'echo ${BRANCH_NAME}'                                 
+	        }    
             }
         }
         
