@@ -1,14 +1,16 @@
 pipeline{
     agent any
-    environment{
-        BRANCH_NAME = "${GIT_BRANCH.split("/")[2]}"
-    }
-    stages{
+	environment{	        
+		RELEASE_NUM = "${GIT_BRANCH.split("/")[1] == "feature" ? "${GIT_BRANCH.split("/")[2].substring(0, 15)}" : "${GIT_BRANCH.split("/")[2]}"}"
+	}
+    stages{         
         stage('one'){
-            steps{
-                bat 'echo %GIT_BRANCH% >> git.txt'
-                bat ' ren "adiEagleEye_PeopleCount_Signed_Encrypted_App_v.ldr" "adiEagleEye_PeopleCount_Signed_Encrypted_App_v%BRAnCH_NAME%.ldr" '  
-                }
+            steps{                    
+                    cleanWs()
+		    echo "${RELEASE_NUM}"
+                                                   
+	        }    
             }
-    }
+        }
+  
 }
