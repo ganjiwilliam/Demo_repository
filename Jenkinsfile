@@ -8,7 +8,7 @@ pipeline{
         stage('one'){
             steps{                    
                     cleanWs()
-		    echo "${RELEASE_NUME}"
+		    echo "${RELEASE_NUM}"
                                                    
 	        }    
             }
