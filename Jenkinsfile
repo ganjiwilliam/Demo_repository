@@ -4,8 +4,9 @@ pipeline{
 	    
 	    stage('three'){
 		    steps{
-			    ws('DemoDirectory/Again'){
+			    ws('DemoDirectory/Again/again2'){
 				    cleanWs()
+				    mkdir hey
 			    }		  
 		    }
 	    }
