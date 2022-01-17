@@ -1,7 +1,6 @@
 pipeline{
     agent any
     stages{  
-	    
 	    stage('three'){
 		    steps{
 			    bat '''
@@ -9,7 +8,6 @@ pipeline{
 			    echo hello william > hey\\hello.txt
 			    '''
 			    }		  
-		    }
 	    }
     }
     }
