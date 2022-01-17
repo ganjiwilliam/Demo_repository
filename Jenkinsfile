@@ -1,9 +1,6 @@
 
 pipeline{
     agent any
-	environment{	        
-		ENV_NAME = "${GIT_BRANCH.split("/")[1] == "main" ? "${GIT_BRANCH.split("/")[0]}" : "no"}"
-	}
     stages{         
         stage('one'){
             steps{     
@@ -15,9 +12,10 @@ pipeline{
 	        }    
             }
 	    stage('two'){
-		    steps{
-			    bat 'mkdir hello3'
-			    
-        }
-  
-}
+            steps{     
+		    bat 'mkdir hello3'
+                    
+                                                   
+	        }    
+            }
+    }
