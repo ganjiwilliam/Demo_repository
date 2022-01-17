@@ -5,7 +5,7 @@ pipeline{
 	    stage('three'){
 		    steps{
 			    ws('DemoDirectory'){
-				    bat 'mkdir hello4'
+				    bat 'mkdir hello'
 			    }		  
 		    }
 	    }
