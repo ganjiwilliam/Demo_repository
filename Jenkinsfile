@@ -10,7 +10,7 @@ pipeline{
 		    bat 'mkdir hello1'
                     cleanWs()
 		    echo "${ENV_NAME}"
-		    bat 'mkdir hello2'
+		    bat 'mkdir %env.JOB_NAME%'
                                                    
 	        }    
             }
