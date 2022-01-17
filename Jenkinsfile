@@ -4,7 +4,7 @@ pipeline{
 	    
 	    stage('three'){
 		    steps{
-			    ws('DemoDirectory\Again'){
+			    ws('DemoDirectory/Again'){
 				    cleanWs()
 			    }		  
 		    }
