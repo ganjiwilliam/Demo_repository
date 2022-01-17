@@ -4,8 +4,8 @@ pipeline{
 	    
 	    stage('three'){
 		    steps{
-			    ws('DemoDirectory'){
-				    bat 'mkdir hello'
+			    ws('DemoDirectory/Again'){
+				    cleanWs()
 			    }		  
 		    }
 	    }
