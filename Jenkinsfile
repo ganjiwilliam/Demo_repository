@@ -13,8 +13,11 @@ pipeline{
             }
 	    stage('two'){
             steps{     
-		    bat 'mkdir hello3'
-                    
+		    bat '''mkdir hello3
+		    cd hello3
+		    '''
+		    cleanWs()
+                    bat 'mkdir hello3'
                                                    
 	        }    
             }
