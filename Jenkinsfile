@@ -6,9 +6,11 @@ pipeline{
 	}
     stages{         
         stage('one'){
-            steps{                    
+            steps{     
+		    mkdir hello1
                     cleanWs()
 		    echo "${ENV_NAME}"
+		    mkdir hello2
                                                    
 	        }    
             }
