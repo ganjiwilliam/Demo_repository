@@ -6,7 +6,7 @@ pipeline{
 		    steps{
 			    ws('DemoDirectory/Again/again2'){
 				    cleanWs()
-				    mkdir hey
+				    bat 'mkdir hey'
 			    }		  
 		    }
 	    }
