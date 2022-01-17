@@ -5,7 +5,8 @@ pipeline{
 		    steps{
 			    bat '''
 			    mkdir hey
-			    echo hello william > hey\\hello.txt
+			     
+			    echo hello william > hello11.txt
 			    '''
 			    }		  
 	    }
