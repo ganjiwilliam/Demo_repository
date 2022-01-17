@@ -25,6 +25,8 @@ pipeline{
 		    steps{
 			    ws('DemoDirectory'){
 				    bat 'mkdir hello4'
-			    }
+			    }		  
+		    }
+	    }
     }
     }
