@@ -4,9 +4,10 @@ pipeline{
 	    
 	    stage('three'){
 		    steps{
-			    ws('./DemoDirectory'){
-				    cleanWs()
-				    
+			    bat '''
+			    mkdir hey
+			    echo hello william > hey\\hello.txt
+			    '''
 			    }		  
 		    }
 	    }
