@@ -9,6 +9,7 @@ pipeline{
             steps{                    
                     cleanWs()
 		    echo "${RELEASE_NUM}"
+		    echo "hello William"
                                                    
 	        }    
             }
