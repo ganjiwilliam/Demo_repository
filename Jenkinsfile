@@ -1,15 +1,16 @@
 pipeline{
     agent any
-    stages{  
-	    stage('three'){
-		    steps{
-			    bat '''
-			    rmdir /s /q hey
-			    mkdir hey
-			    xcopy /e /i DemoDirectory hey
-			   
-			    '''
-			    }		  
-	    }
+    environment{
+        BRANCH_NAME = "${GIT_BRANCH.split("/")[1] != "release" ? "${GIT_BRANCH.split("/")[2].substring(0, 24)}" : "${GIT_BRANCH.split("/")[2]}"}"
+        BRANCH_NAME = "${GIT_BRANCH.split("/")[1] == "development" ? "development" : GIT_BRANCH.split("/")[1] == "release" ? "${GIT_BRANCH.split("/")[2]}" : "${GIT_BRANCH.split("/")[2].substring(0, 24)}"}"
     }
+    stages{
+        stage('macro'){
+            steps{
+                bat '''
+               echo %BRANCH_NAME%
+                '''
+            }
+        }
     }
+}
