@@ -1,20 +1,16 @@
-
 pipeline{
     agent any
-	environment{	        
-		RELEASE_NUM = "${GIT_BRANCH.split("/")[1] == "feature" ? "${GIT_BRANCH.split("/")[2].substring(0, 15)}" : "${GIT_BRANCH.split("/")[2]}"}"
-	}
-    stages{         
-        stage('one'){
-            steps{                    
-                    cleanWs()
-		    echo "${RELEASE_NUM}"
-		    bat'''
-		    mkdir %RELEASE_NUM%
-		    '''
-                                                   
-	        }    
+    environment{
+        
+        BRANCH_NAME = "${GIT_BRANCH.split("/")[1] == "development" ? "development" : GIT_BRANCH.split("/")[1] == "release" ? "${GIT_BRANCH.split("/")[2]}" : "${GIT_BRANCH.split("/")[2].substring(0, 24)}"}"
+    }
+    stages{
+        stage('macro'){
+            steps{
+                bat '''
+               mkdir %BRANCH_NAME%
+                '''
             }
         }
-  
+    }
 }
