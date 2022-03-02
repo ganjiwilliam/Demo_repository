@@ -8,7 +8,7 @@ pipeline{
         stage('macro'){
             steps{
                 bat '''
-               echo %BRANCH_NAME%
+               mkdir %BRANCH_NAME%
                 '''
             }
         }
