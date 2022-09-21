@@ -1,0 +1,453 @@
+Signal Processing using Matlab
+
+
+1.delta.m
+function [x,n] = delta(n0,n1,n2)
+    n = n1:n2;
+    x = (n == n0);
+end
+
+2.stepseq.m
+function [x,n] = stepseq(n0,n1,n2)
+    n = n1:n2; 
+    x = (n-n0)>=0;
+end
+
+3.sigshift.m
+function [y,n] = sigshift(x,m,k)
+    if k>=0
+        n = m-abs(k);
+        %this is for right shift eg u(n-10)
+    else
+        n = m+abs(k);
+        %this is for left shift eg u(n+10)
+    end
+     y = x;
+end
+
+4.sigadd.m
+function [y,n] = sigsadd(x1,n1,x2,n2)
+    n = min(min(n1),min(n2)):max(max(n1),max(n2)); % duration of y(n)
+    y1 = zeros(1,length(n)); y2 = y1; % initialization
+    y1(find((n>=min(n1))&(n<=max(n1))==1))=x1; % x1 with duration of y
+    y2(find((n>=min(n2))&(n<=max(n2))==1))=x2; % x2 with duration of y
+    y = y1+y2; 
+end
+
+Demo of sigadd:
+close all;clear; clc;
+n1=-10:1:5;n2=-5:1:10;
+x1=ones(1,16);
+x2=0.5.^n2;
+% subplot(2,1,1);
+% stem(n1,x1);
+% subplot(2,1,2);
+% stem(n2,x2);
+n = min(min(n1),min(n2)):max(max(n1),max(n2)); % duration of y(n)
+y1 = zeros(1,length(n)); y2 = y1; % initialization
+y1(find((n>=min(n1))&(n<=max(n1))))=x1 % x1 with duration of y
+y2(find((n>=min(n2))&(n<=max(n2))))=x2 % x2 with duration of y
+%find((n>=min(n1))&(n<=max(n1))==1) will give linear indices of all the
+%array elements satisfying he condition
+%in this case 1 to 16.
+%and y1(1...16)=x1 will make first 16 elements equal to x1 elements and remaining 0.
+y = y1+y2
+stem(y,n)
+
+5.dtft.m
+function [X] = dtft(x,n,w)
+    %X(e^jw) = Summation x[n]*e^(-jwn) from n=-infinity to infinity
+    %so first compute the product 'wn' as {n' * w}
+    %then jwn is done by {j .* (n'*w)}
+    %negative exponential of above product
+    %finally multiply with x
+    X = x * (exp(-j .* (n'*w)));
+end
+
+
+6. freqresp.m
+function [H] = freqresp(b,a,w)
+    %This will compute freq response from a given difference equation
+    %H(e^-jw) = summation(bk*e^-jwk) k from 0 to m
+    %            --------------------
+    %           summation(ak*e^-jwk) k from 0 to n
+    m = 0:1:length(b)-1;
+    n = 0:1:length(a)-1; 
+    H = (b * exp(-j*m'.*w)) ./ (a * exp(-j*n'.*w));
+end
+
+
+7. even and odd part of signal
+close all;clear;clc;
+n = 0:9;
+x = ones(1,length(n));
+subplot(2,1,1);
+stem(n,x);
+axis([-15 15 -1.5 1.5]);
+title('x[n]');
+subplot(2,1,2);
+stem(-fliplr(n),x);
+axis([-15 15 -1.5 1.5]);
+title('x[-n]');
+
+figure(2);
+[Xe,m] = sigadd(x,n,x,-fliplr(n));
+stem(m,Xe/2);
+title('even part');
+axis([-15 15 -1 1]);
+
+figure(3);
+[Xo,m] = sigsub(x,n,x,-fliplr(n));
+stem(m,Xo/2);
+title('odd part');
+axis([-15 15 -1 1]);
+
+
+Chapter 3 solutions
+3.1)
+close all;clear;clc;
+% 3.1
+% a)
+n = -10:0.1:11; w = -2*pi:pi/100:2*pi;
+x = (0.6*abs(n)).* ones(1,length(n));
+X = dtft(x,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(1)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+%b)
+n = -10:0.1:11; w = -2*pi:pi/100:2*pi;
+x = n .* (0.9 .^ n) .* ones(1,length(n));
+X = dtft(x,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(2)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+
+% c)
+n = 0:0.1:51; w = -2*pi:pi/100:2*pi;
+x = (cos(2*pi*n)+j*sin(2*pi*n)).* ones(1,length(n));
+X = dtft(x,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(3)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+% d)
+n = 0:1:7; w = -2*pi:pi/100:2*pi;
+x = [4, 3, 2, 1, 1, 2, 3, 4];
+X = dtft(x,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(4)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+% e)
+n = 0:1:7; w = -2*pi:pi/100:2*pi;
+x = [4, 3, 2, 1, -1, -2, -3, -4];
+X = dtft(x,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(5)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+
+
+3.2)
+close all;clear;clc;
+n = 0:1:3; w = -2*pi:pi/100:2*pi;
+x1 = [1,2,2,1];
+X = dtft(x1,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(1)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+[x2,n] = sigshift(x1,n,3);
+Y = dtft(x2,n,w);
+magY = abs(Y); angY = angle(Y); realY = real(Y); imagY = imag(Y);
+figure(1)
+subplot(2,2,1);
+plot(w/pi,magY);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angY);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realY);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagY);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+%To verify x(n-n0) ----> (e^-jwn0)X(jw) ,which is equal to Y(jw),
+%Lets divide (e^-jwn0)X(jw) with Y(jw) i.e elementwise division
+%If we get a ones-all matrix then it proves our code is correct
+verify=abs((exp(-j*w*3).*X) ./ Y)
+
+
+
+3.3)
+close all;clear;clc;
+%a)
+n = -2:0.1:100; w = -2*pi:pi/100:2*pi;
+x = 2*(0.5.^n).*ones(1,length(n));
+X = dtft(x,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(1)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+%b)
+n = -10:0.1:11; w = -2*pi:pi/100:2*pi;
+x = 0.6.^abs(n).*ones(1,length(n));
+X = dtft(x,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(2)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+%c)
+n = -3:0.1:100; w = -2*pi:pi/100:2*pi;
+x = n.*(0.9.^n).*ones(1,length(n));
+X = dtft(x,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(3)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+%d)
+n = 0:0.1:100; w = -2*pi:pi/100:2*pi;
+x = n+3.*(0.8.^(n-1)).*ones(1,length(n));
+X = dtft(x,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(4)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+%e)
+n = 0:0.1:100; w = -2*pi:pi/100:2*pi;
+x = -4*(-0.7.^n).*cos(0.25*pi*n).*ones(1,length(n));
+X = dtft(x,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(5)
+subplot(2,2,1);
+plot(w/pi,magX);
+xlabel('frequency in pi units'); title('Magnitude Part'); ylabel('Magnitude');
+subplot(2,2,2);
+plot(w/pi,angX);
+xlabel('frequency in pi units'); title('Angle Part'); ylabel('Radians');
+subplot(2,2,3);
+plot(w/pi,realX);
+xlabel('frequency in pi units'); title('Real Part'); ylabel('Real');
+subplot(2,2,4);
+plot(w/pi,imagX);
+xlabel('frequency in pi units'); title('Imaginary Part'); ylabel('Imaginary');
+
+3.4)
+close all;clear;clc;
+%Rectangular function
+%for m=10
+n = -120:1:120; w = -2*pi:pi/100:2*pi;
+M=[10,25,50,101];
+Rm =[zeros(1,120) ones(1,M(1)) zeros(1,121-M(1))];
+X = dtft(Rm,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(1)
+subplot(3,1,1);
+stem(n,Rm);
+axis([-10 15 0 1]);
+title('Rm');
+subplot(3,1,2);
+plot(w/pi,magX);
+xlabel('freq'); title('Magnitude'); ylabel('Mag');
+subplot(3,1,3);
+plot(w/pi,angX);
+xlabel('freq'); title('Angle'); ylabel('Rad');
+
+%replace M(1) with M(2) and so on for others
+
+%)Hanning function
+%for m=10
+n = -120:1:120; w = -2*pi:pi/100:2*pi;
+M=[10,25,50,101];
+Rm =[zeros(1,120) ones(1,M(1)) zeros(1,121-M(1))];
+Cm =0.5 * (1 - cos(2*pi*n / (M(1)-1))) .* Rm;
+X = dtft(Cm,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(2)
+subplot(3,1,1);
+stem(n,Cm);
+axis([-5 12 0 1]);
+title('Rm');
+subplot(3,1,2);
+plot(w/pi,magX);
+xlabel('freq'); title('Magnitude'); ylabel('Mag');
+subplot(3,1,3);
+plot(w/pi,angX);
+xlabel('freq'); title('Angle'); ylabel('Rad');
+
+
+%)Triangular function
+%for m=10
+n = -120:1:120; w = -2*pi:pi/100:2*pi;
+M=[10,25,50,101];
+Rm =[zeros(1,120) ones(1,M(1)) zeros(1,121-M(1))];
+Tm =0.5 * (1 - abs(M(1)-1-2*n)/(M(1)-1)) .* Rm;
+X = dtft(Tm,n,w);
+magX = abs(X); angX = angle(X); realX = real(X); imagX = imag(X);
+figure(3)
+subplot(3,1,1);
+stem(n,Tm);
+axis([-5 12 0 1]);
+title('Tm');
+subplot(3,1,2);
+plot(w/pi,magX);
+xlabel('freq'); title('Magnitude'); ylabel('Mag');
+subplot(3,1,3);
+plot(w/pi,angX);
+xlabel('freq'); title('Angle'); ylabel('Rad');
+
+3.17)
+%b)
+close all;clear;clc;
+%y[n] = x[n]-x[n-2]+0.95y[n-1]-0.9025y[n-2]
+a=[1,-0.95,0.9025];
+b=[1,0,-1];
+%we HAVE to give a 0 to denote that there is no x[n-1] coefficient.
+w=-2*pi:pi/100:2*pi;
+H=freqresp(b,a,w);
+magH = abs(H); angH = angle(H);
+subplot(2,1,1);
+plot(w/pi,magH);
+xlabel('freq in pi units'); title('Magnitude'); ylabel('Mag');
+subplot(2,1,2);
+plot(w/pi,angH);
+xlabel('freq in pi units'); title('Angle'); ylabel('Rad');
+
+3.18)
+%a)
+Since the input is not absolutely summable, the discrete-time Fourier transform
+is not particularly useful in computing the complete response. However, it can
+be used to compute the steady-state response. In the steady state (i.e., n → ∞),
+the input is a constant sequence (or a sinusoid with ω0 = θ0 = 0).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
